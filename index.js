@@ -3,7 +3,8 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from "dotenv";
 import connectDB from './DB/database.js';
-import { register } from './Controller/user.controller.js';
+import { register } from './Controller/student.controller.js';
+import { eventRouter } from './Routes/event.router.js';
 
 dotenv.config();
 const app = express()
@@ -16,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req,res)=>{
     res.send('Hello World')
 })
+
+app.use('/event', eventRouter)
 
 app.post('/register',register)
 

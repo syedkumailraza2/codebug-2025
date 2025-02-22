@@ -95,8 +95,8 @@ This is the backend for **CodeBug 2025**, a platform for students to connect, sh
 {
   "name": "hello",
   "format": "pdf",
-  "file": "hello.pdf",
-  "tech": "Java"
+  "tech": "Java",
+  "url": "cloudinary.com/hello"
 }
 ```
 
@@ -112,8 +112,8 @@ This is the backend for **CodeBug 2025**, a platform for students to connect, sh
 {
   "name": "hello",
   "format": "pdf",
-  "file": "hello.pdf",
-  "tech": "Java"
+  "tech": "Java",
+  "url": "cloudinary.com/hello"
 }
 ```
 
