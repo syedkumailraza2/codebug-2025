@@ -1,12 +1,30 @@
 import mongoose from 'mongoose';
+import cloudinary from "cloudinary";
+import dotenv from "dotenv";
 
-const connectDB = async()=>{
+dotenv.config();  // Load .env variables
+
+// Cloudinary Configuration
+cloudinary.config({  
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
+
+// Connect MongoDB
+const connectDB = async () => {
     try {
-        const connect = await mongoose.connect(process.env.MONGO_URI);
-        console.log(`DataBase Connected: ${connect.connection.host}` )
+        const connect = await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log(`✅ Database Connected: ${connect.connection.host}`);
     } catch (error) {
-        console.log(error)
+        console.error("❌ Database Connection Error:", error);
+        process.exit(1);  // Exit process on failure
     }
-}
+};
 
 export default connectDB;
