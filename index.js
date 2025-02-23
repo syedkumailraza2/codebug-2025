@@ -15,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 //Student Routes
 app.use('/student',path)
 
@@ -24,6 +23,10 @@ app.use('/notes', studyMaterialRoutes); // Adds all CRUD routes for study materi
 
 app.use('/event', eventRouter)
 
+
+app.get('/',(req,res)=>{
+    res.send("Server is Running successfully")
+})
 
 app.listen(PORT, ()=>{
     console.log('server is running at ',PORT);
