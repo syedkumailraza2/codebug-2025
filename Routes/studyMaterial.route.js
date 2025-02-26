@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-// Configure Multer for file uploads (store in memory, no temp file system)
+// Configure Multer for file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -20,7 +20,7 @@ router.post('/create', upload.single('file'), uploadStudyMaterial);
 router.get('/', getAllStudyMaterials);
 router.get('/search', searchStudyMaterials);
 router.get('/:id', getStudyMaterialById);
-router.put('/:id', updateStudyMaterial);
+router.put('/:id', upload.single('file'), updateStudyMaterial);
 router.delete('/:id', deleteStudyMaterial);
 
 export default router;
