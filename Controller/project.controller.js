@@ -9,9 +9,9 @@ export const upload = multer({ storage });
 // ✅ Create a New Project (Uploads Image to Cloudinary)
 export const createProject = async (req, res) => {
     try {
-        const { title, description } = req.body;
-        if (!title || !description || !req.file) {
-            return res.status(400).json({ message: "Title, description, and image are required" });
+        const { title, description, projectUrl } = req.body;
+        if (!title || !description || !projectUrl || !req.file) {
+            return res.status(400).json({ message: "Title, description, project URL, and image are required" });
         }
 
         // Upload image to Cloudinary
@@ -28,7 +28,8 @@ export const createProject = async (req, res) => {
             title,
             description,
             imageUrl: result.secure_url,
-            cloudinaryId: result.public_id  // ✅ Store Cloudinary ID
+            cloudinaryId: result.public_id,
+            projectUrl  // ✅ Store Project URL
         });
 
         res.status(201).json(newProject);
@@ -59,10 +60,10 @@ export const getProjectById = async (req, res) => {
     }
 };
 
-// ✅ Update a Project (Updates title, description, and optionally the image)
+// ✅ Update a Project (Updates title, description, project URL, and optionally the image)
 export const updateProject = async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const { title, description, projectUrl } = req.body;
         const project = await Project.findById(req.params.id);
         if (!project) return res.status(404).json({ message: "Project not found" });
 
@@ -87,6 +88,7 @@ export const updateProject = async (req, res) => {
 
         project.title = title || project.title;
         project.description = description || project.description;
+        project.projectUrl = projectUrl || project.projectUrl;  // ✅ Allow updating Project URL
         await project.save();
 
         res.status(200).json(project);
